@@ -34,4 +34,16 @@ class MyListSuite extends FunSuite {
     val actual = groupBy(MyList(1,2,3,4,5,6,7,8,9), x => x % 2)
     assertEquals(actual, expected)
   }
+
+  test("parseRle  []") {
+    val expected = MyNil
+    val actual = parseRle("")
+    assertEquals(actual, expected)
+  }
+
+  test("parseRle 2 3 3 10 => []") {
+    val expected = MyList(3, 3, 10, 10, 10)
+    val actual = parseRle("2 3 3 10")
+    assertEquals(actual, expected)
+  }
 }

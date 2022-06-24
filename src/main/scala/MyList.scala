@@ -65,5 +65,26 @@ def groupBy[A,B](xs: MyList[A], f: A => B): Map[B, MyList[A]] =
       val fhd = f(hd)
       will.updated(fhd, MyCons(hd, will.getOrElse(fhd, MyNil)))
 
+def parseRle(s: String): MyList[Int] =
+  @tailrec
+  def insert(count: Int, a: Int, xs: MyList[Int]): MyList[Int] =
+    if (count > 0)
+      insert(count - 1, a, MyCons(a, xs))
+    else
+      xs
+  @tailrec
+  def go(nn: Array[Int], acc: MyList[Int]): MyList[Int] =
+    if (nn.nonEmpty)
+      val number = nn.last
+      val count = nn.dropRight(1).last
+      go(nn.dropRight(2), insert(count, number, acc))
+    else
+      acc
+  if (s.isEmpty)
+    MyNil
+  else
+    val nums = s.split(' ').map(str => str.toInt)
+    go(nums, MyNil)
+
 @main def run(): Unit =
-  println("Hello World")
+  println("Hello")
